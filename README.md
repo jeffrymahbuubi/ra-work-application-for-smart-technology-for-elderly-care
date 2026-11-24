@@ -17,6 +17,8 @@ Each result shows the reason in plain language. The supervisor checks the underl
 
 ## First classroom prototype
 
+Open [index.html](index.html) in a browser to try Review Desk. Use the two menus and select **查看優先順序** to check the review priority.
+
 Start with a single browser page and two fictional inputs. Use rules that produce the same result for the same inputs so the group can check every result by hand. Later, students can compare an AI-assisted approach against this version and look at where their results differ.
 
 1. Open this folder in Codex or Claude Code. Paste the prompt below into the chat.
@@ -35,6 +37,12 @@ Start with a single browser page and two fictional inputs. Use rules that produc
 | Blank | Yes | Red · The request for prompt review takes priority. |
 
 As a group, decide which information a supervisor needs to understand each result and what an AI-assisted version would have to explain before you could compare it with the rules.
+
+## UI design prompt used in class
+
+> @ra-20261117-first-group/ The group decide to move on with applicaiton 2 as stated in readme.md we want to createa a UI first, use [@Website Design](plugin://website-design@openai-curated-remote) to propose 3 design.
+>
+> Additionally put on README.md this prompt I used both in english and chinese
 
 ## AI 高齡者風險紅黃綠燈分級系統
 
@@ -55,6 +63,8 @@ As a group, decide which information a supervisor needs to understand each resul
 
 ### 第一版課堂原型
 
+用瀏覽器開啟 [index.html](index.html) 試用個案檢視台。在兩個選單填寫虛構個案資料，再按下**查看優先順序**。
+
 先做一個可開啟的網頁，用兩個欄位輸入虛構個案的資訊。相同的輸入應得到相同的結果，這樣全組就能逐一核對。之後可以試做 AI 輔助版本，比較兩個版本在哪些情況下會得出不同結果。
 
 1. 在 Codex 或 Claude Code 開啟這個資料夾，將下方提示詞貼到對話框。
@@ -73,3 +83,9 @@ As a group, decide which information a supervisor needs to understand each resul
 | 空白 | 是 | 紅燈（優先處理督導檢視的請求。） |
 
 請全組討論督導需要哪些資訊才能理解每項結果，以及 AI 輔助版本需要解釋哪些判斷依據，才能和規則版本比較。
+
+### 課堂使用的介面設計提示詞
+
+> @ra-20261117-first-group/ 我們小組決定繼續做 README.md 裡的應用二（技術二）。我們想先設計使用者介面，請用 [@Website Design](plugin://website-design@openai-curated-remote) 提出三種設計方案。
+>
+> 另外，請把我這次使用的提示詞以英文和繁體中文放進 README.md。

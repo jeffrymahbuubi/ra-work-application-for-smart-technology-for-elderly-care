@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="用虛構個案練習判斷居家服務督導的檢視優先順序。">
+  <title>個案檢視台｜高齡照護課堂原型</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f3f7f6;
+      --surface: #fff;
+      --text: #142b28;
+      --muted: #435d58;
+      --primary: #185b50;
+      --primary-dark: #10463d;
+      --accent: #d9efe8;
+      --input-border: #657e78;
+      --line: #d6e2dd;
+      --radius: 12px;
+      font: 100%/1.6 system-ui, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body { margin: 0; background: var(--background); color: var(--text); }
+
+    h1, h2, h3, p { margin: 0; }
+
+    :focus-visible { outline: 3px solid var(--primary); outline-offset: 4px; }
+
+    .container { width: min(100% - 2.5rem, 68rem); margin-inline: auto; }
+
+    .masthead { background: var(--surface); border-bottom: 1px solid var(--line); }
+
+    .masthead .container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-block: 1rem;
+      font-weight: 700;
+    }
+
+    .signal {
+      display: grid;
+      gap: 3px;
+      padding: 5px 7px;
+      border-radius: 8px;
+      background: var(--text);
+    }
+
+    .signal span { width: 6px; height: 6px; border-radius: 50%; }
+    .signal span:nth-child(1) { background: #f49b99; }
+    .signal span:nth-child(2) { background: #f1c15e; }
+    .signal span:nth-child(3) { background: #75cfad; }
+
+    main { padding-block: clamp(2rem, 5vw, 4.5rem) 2rem; }
+
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.15; }
+    h2 { font-size: 1.25rem; line-height: 1.35; }
+    h3 { font-size: 1.375rem; line-height: 1.4; }
+
+    .intro { margin-block: 0.75rem 2rem; color: var(--muted); }
+
+    .workspace {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .panel {
+      padding: clamp(1.25rem, 3vw, 2rem);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .panel h2 { margin-block-end: 1.5rem; }
+
+    .field + .field { margin-block-start: 1.25rem; }
+
+    label { display: block; margin-block-end: 0.375rem; font-weight: 650; }
+
+    select, button { min-height: 3rem; font: inherit; border-radius: 8px; }
+
+    select {
+      width: 100%;
+      padding: 0.5rem 2.5rem 0.5rem 0.875rem;
+      appearance: none;
+      border: 1px solid var(--input-border);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .select-wrap { position: relative; }
+
+    .select-wrap::after {
+      content: "";
+      position: absolute;
+      inset-inline-end: 1rem;
+      top: 50%;
+      width: 0.55rem;
+      height: 0.55rem;
+      border: solid var(--muted);
+      border-width: 0 2px 2px 0;
+      transform: translateY(-70%) rotate(45deg);
+      pointer-events: none;
+    }
+
+    button {
+      width: 100%;
+      margin-block-start: 1.75rem;
+      padding: 0.625rem 1.25rem;
+      border: 1px solid transparent;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover { background: var(--primary-dark); }
+
+    .result {
+      --status-ink: #31534b;
+      --status-fill: #eef5f2;
+      display: flex;
+      min-height: 8.5rem;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.375rem;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-inline-start: 4px solid var(--status-ink);
+      border-radius: 8px;
+      background: var(--status-fill);
+      color: var(--status-ink);
+    }
+
+    [data-status="red"] { --status-ink: #8b2824; --status-fill: #fbe9e7; }
+    [data-status="yellow"] { --status-ink: #724e08; --status-fill: #fff1d4; }
+    [data-status="green"] { --status-ink: #14543d; --status-fill: #e2f4e9; }
+    [data-status="incomplete"] { --status-ink: #415168; --status-fill: #eaf0f7; }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+      gap: 0.5rem;
+      margin: 1.25rem 0 0;
+      padding: 1rem 0 0;
+      border-top: 1px solid var(--line);
+      list-style: none;
+    }
+
+    .legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+
+    .legend li::before {
+      content: "";
+      flex: 0 0 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--status-ink);
+    }
+
+    .class-note {
+      margin-block-start: 1rem;
+      padding: 0.875rem 1rem;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--text);
+      font-size: 0.9375rem;
+    }
+
+    @media (min-width: 48em) {
+      .workspace { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    }
+
+    @media (forced-colors: active) {
+      select { appearance: auto; }
+      .select-wrap::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="container">
+      <span class="signal" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span>居家照護 · 課堂原型</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>個案檢視台</h1>
+    <p class="intro">用虛構個案練習判斷督導應優先檢視哪些情況。</p>
+
+    <div class="workspace">
+      <section class="panel" aria-labelledby="case-heading">
+        <h2 id="case-heading">個案資訊</h2>
+        <form id="case-form">
+          <div class="field">
+            <label for="recent-change">是否通報近期變化</label>
+            <div class="select-wrap">
+              <select id="recent-change">
+                <option value="">尚未填寫</option>
+                <option value="yes">是</option>
+                <option value="no">否</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="prompt-review">是否請督導優先檢視</label>
+            <div class="select-wrap">
+              <select id="prompt-review">
+                <option value="">尚未填寫</option>
+                <option value="yes">是</option>
+                <option value="no">否</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit">查看優先順序</button>
+        </form>
+        <noscript><p>請在瀏覽器啟用 JavaScript，以查看個案的檢視結果。</p></noscript>
+      </section>
+
+      <section class="panel" aria-labelledby="review-heading">
+        <h2 id="review-heading">檢視結果</h2>
+        <div class="result" id="result" role="status" aria-atomic="true">
+          <h3 id="status-title">尚未檢查</h3>
+          <p id="status-reason">選擇個案資訊後，按下「查看優先順序」。</p>
+        </div>
+        <ul class="legend" aria-label="結果圖例">
+          <li data-status="red">紅燈 · 優先檢視</li>
+          <li data-status="yellow">黃燈 · 持續觀察</li>
+          <li data-status="green">綠燈 · 例行檢視</li>
+          <li data-status="incomplete">資料不完整 · 待補資料</li>
+        </ul>
+      </section>
+    </div>
+
+    <p class="class-note">本頁使用課堂示範規則。督導需核對個案資料，再決定如何追蹤。</p>
+  </main>
+
+  <script>
+    const form = document.querySelector("#case-form");
+    const recentChange = document.querySelector("#recent-change");
+    const promptReview = document.querySelector("#prompt-review");
+    const result = document.querySelector("#result");
+    const statusTitle = document.querySelector("#status-title");
+    const statusReason = document.querySelector("#status-reason");
+
+    function checkPriority(change, review) {
+      // Use the first matching rule. A request for prompt review takes priority.
+      if (review === "yes") {
+        return {
+          status: "red",
+          title: "紅燈 · 優先檢視",
+          reason: "已請督導優先檢視。"
+        };
+      }
+
+      if (change === "" || review === "") {
+        const missingFields = [];
+        if (change === "") missingFields.push("「是否通報近期變化」");
+        if (review === "") missingFields.push("「是否請督導優先檢視」");
+
+        return {
+          status: "incomplete",
+          title: "資料不完整 · 待補資料",
+          reason: "請補填" + missingFields.join("及") + "。"
+        };
+      }
+
+      if (change === "yes") {
+        return {
+          status: "yellow",
+          title: "黃燈 · 持續觀察",
+          reason: "已通報近期變化。"
+        };
+      }
+
+      return {
+        status: "green",
+        title: "綠燈 · 例行檢視",
+        reason: "未通報近期變化，也未請督導優先檢視。"
+      };
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const priority = checkPriority(recentChange.value, promptReview.value);
+      result.dataset.status = priority.status;
+      statusTitle.textContent = priority.title;
+      statusReason.textContent = priority.reason;
+    });
+
+    form.addEventListener("change", () => {
+      if (!result.dataset.status) return;
+
+      delete result.dataset.status;
+      statusTitle.textContent = "待重新檢查";
+      statusReason.textContent = "個案資訊已更新。請再按一次「查看優先順序」。";
+    });
+  </script>
+</body>
+</html>
