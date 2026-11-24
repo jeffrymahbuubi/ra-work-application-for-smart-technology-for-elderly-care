@@ -4,6 +4,16 @@
 
 The first group chose **Technology 2** from its older adult care proposal. The project explores how home care supervisors in Taiwan could use recent changes in a case, reported incidents, and service records to decide which cases to review first.
 
+## Next class tasks
+
+1. **Create and agree on the user flow.** A user flow (UI flow) is a step-by-step diagram of what a user does and what the app shows after each action. Open this group folder in Codex and paste the prompt below into the chat.
+
+   > Read the sample cases in `README.md`. Draft a user flow diagram that shows how a home care supervisor opens the app, enters a fictional case, checks its review priority, and sees the result and reason. Show what happens when information is missing.
+
+   Walk through the diagram together using the sample cases. If a step is unclear, tell Codex what you expected to happen and ask it to revise that step. Repeat until everyone in the group agrees on the flow.
+
+2. **Design the interface after the group approves the flow.** Give Codex the approved diagram and ask for a first screen layout. Compare the draft with the diagram and check that every action and result has a place on the screen.
+
 ## What the supervisor sees
 
 | Indicator | Meaning |
@@ -49,6 +59,16 @@ As a group, decide which information a supervisor needs to understand each resul
 [English](#ai-based-traffic-light-risk-classification-system-for-older-adults)
 
 第一組選擇長照提案中的**技術二**。本專題探討臺灣的居家服務督導如何參考個案近期變化、事件通報與服務紀錄，判斷哪些個案需要優先檢視。
+
+### 接下來的課堂任務
+
+1. **畫出使用者流程圖，並取得全組共識。** 使用者流程（UI flow）是用圖一步步呈現使用者怎麼操作，以及每次操作後畫面會顯示什麼。在 Codex 開啟這個小組資料夾，把下方提示詞貼到對話框。
+
+   > 請閱讀 `README.md` 裡的範例個案，先畫一版使用者流程圖，呈現居家服務督導如何開啟應用程式、輸入虛構個案資料、查看檢視優先順序，以及看到結果和原因。也請畫出資料缺漏時會發生什麼。
+
+   全組用範例個案一起走一遍流程圖。如果某一步不清楚，就告訴 Codex 你們預期會發生什麼，請它修改那一步。重複確認與修改，直到全組都同意這個流程。
+
+2. **全組確認流程後，再開始設計介面。** 把確認好的流程圖交給 Codex，請它先做一版畫面配置草稿。對照流程圖，確認每項操作和結果都能在畫面上找到。
 
 ### 督導會看到什麼
 
